@@ -1,0 +1,44 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Profile</title>
+  <link rel="stylesheet" href="css/style.css" />
+    <!-- alerats -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">Task Management</div>
+    <ul id="nav-links">
+      <li><button id="loginBtn">Login</button></li>
+      <li><button id="signupBtn">Sign Up</button></li>
+    </ul>
+    <div class="hamburger" id="hamburger">&#9776;</div>
+  </nav>
+
+
+  <div class="profile-container">
+    <h2>My Profile</h2>
+    <p><strong>Name:</strong> <span id="profileName"></span></p>
+    <p><strong>Number:</strong> <span id="profileNumber"></span></p>
+    <p><strong>Age:</strong> <span id="profileAge"></span></p>
+    <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+    <button id="logoutBtn">Logout</button>
+  </div>
+
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+
+  <script src="js/firebase-config.js" defer></script>
+  <script src="js/script.js" defer></script>
+</body>
+</html>

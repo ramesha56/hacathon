@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Perfume Shop</title>
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+  <script src="js/firebase-config.js" defer></script>
+  <script src="js/script.js" defer></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  
+  
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">Task Management</div>
+  <ul id="nav-links">
+    <li><button id="loginBtn">Login</button></li>
+    <li><button id="signupBtn">Sign Up</button></li>
+  </ul>
+  <div class="hamburger" id="hamburger">&#9776;</div>
+</nav>
+
+<!-- SIDEBAR  -->
+<div class="sidebar" id="sidebar" style="display: none;">
+  <ul id="sidebar-links">
+  </ul>
+</div>
+
+<div class="main-content" id="mainContent">
+  <div class="hero-carousel">
+    <div class="carousel-images">
+      <img src="img/slider.webp" class="carousel-img active">
+      <img src="img/slider2.png" class="carousel-img">
+      <img src="img/slider3.jpg" class="carousel-img">
+      
+    </div>
+    <div class="carousel-dots">
+      <span class="dot active-dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+  </div>
+</div>
+
+
+<!-- LOGIN MODAL -->
+<div id="loginModal" class="modal" style="display: none;">
+  <form id="loginForm">
+    <span class="close" id="closeLogin">&times;</span>
+    <h2>Login</h2>
+    <input type="email" placeholder="Email" id="loginEmail" required />
+    <input type="password" placeholder="Password" id="loginPassword" required />
+    <button type="submit">Login</button>
+    <p>Don't have an account? <a href="#" id="switchToSignup">Sign up here</a></p>
+    <button type="button" id="googleLogin">Continue with Google</button>
+  </form>
+</div>
+
+<!-- SIGNUP MODAL -->
+<div id="signupModal" class="modal" style="display: none;">
+  <form id="signupForm">
+    <span class="close" id="closeSignup">&times;</span>
+    <h2>Sign Up</h2>
+    <input type="text" placeholder="Full Name" id="signupName" required />
+    <input type="text" placeholder="Phone Number" id="signupNumber" required />
+    <input type="number" placeholder="Age" id="signupAge" required />
+    <input type="email" placeholder="Email" id="signupEmail" required />
+    <input type="password" placeholder="Password" id="signupPassword" required />
+    <button type="submit">Sign Up</button>
+    <p>Already have an account? <a href="#" id="switchToLogin">Login here</a></p>
+    <button type="button" id="googleSignup">Continue with Google</button>
+  </form>
+</div>
+<script>
+  // Sidebar toggle for mobile
+const hamburger = document.getElementById('hamburger');
+const sidebar = document.getElementById('sidebar');
+
+hamburger.addEventListener('click', () => {
+  sidebar.classList.toggle('active');
+});
+
+</script>
+</body>
+</html>

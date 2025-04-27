@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">Task Management</div>
+    <ul id="nav-links">
+      <li><button id="loginBtn">Login</button></li>
+      <li><button id="signupBtn">Sign Up</button></li>
+    </ul>
+    <div class="hamburger" id="hamburger">&#9776;</div>
+  </nav>
+
+  <main class="about-main">
+    <section class="about-hero">
+      <h1>About Us</h1>
+      <p>Helping individuals and teams stay organized and productive since 2020.</p>
+    </section>
+
+    <section class="about-mission">
+      <h2>Our Mission</h2>
+      <p>At TaskTracker, we believe that task management is the key to productivity. Our mission is to create an intuitive platform that helps users manage their tasks, set priorities, and collaborate effectively.</p>
+    </section>
+
+    <section class="about-values">
+      <h2>Our Values</h2>
+      <ul>
+        <li>Efficiency through simplicity</li>
+        <li>Collaboration and teamwork</li>
+        <li>Personalized user experience</li>
+        <li>Continuous improvement and innovation</li>
+      </ul>
+    </section>
+
+    <section class="about-journey">
+      <h2>Our Journey</h2>
+      <div class="journey-timeline">
+        <div class="event">
+          <h3>2020</h3>
+          <p>Started as a small project with the goal of improving task management for individuals.</p>
+        </div>
+        <div class="event">
+          <h3>2022</h3>
+          <p>Expanded the platform to include team collaboration features, enhancing productivity for businesses.</p>
+        </div>
+        <div class="event">
+          <h3>2025</h3>
+          <p>Launched advanced task analytics and integration with popular project management tools.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-team">
+      <h2>Meet Our Team</h2>
+      <div class="team-members">
+        <div class="team-card">
+          <img src="https://randomuser.me/api/portraits/women/50.jpg" alt="Founder">
+          <h4>Sarah Ali</h4>
+          <p>Founder & CEO</p>
+        </div>
+        <div class="team-card">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Lead Developer">
+          <h4>Ahmed Khan</h4>
+          <p>Lead Developer</p>
+        </div>
+        <div class="team-card">
+          <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Product Designer">
+          <h4>Maira Zafar</h4>
+          <p>Product Designer</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/script.js"></script>
+
+  <!-- animation -->
+  <script>
+    window.addEventListener('scroll', () => {
+      document.querySelectorAll('section').forEach(sec => {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+          sec.classList.add('show');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

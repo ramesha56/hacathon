@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Firebase CRUD App</title>
+  <link rel="stylesheet" href="css/crud.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+
+  <!-- <div class="container">
+    <div class="back-btn-container">
+      <button id="backBtn" onclick="goBack()">Back</button>
+    </div> -->
+
+    <h2>TASK FORM</h2>
+
+    <div class="form-container">
+      <label for="taskTitle">Task Title</label>
+      <input type="text" id="taskTitle" placeholder="Enter task title">
+
+      <label for="description">Description</label>
+      <input type="text" id="description" placeholder="Enter task description">
+
+      <label for="assignTo">Assign To</label>
+      <input type="text" id="assignTo" placeholder="Enter person name">
+
+      <label for="priority">Priority</label>
+      <select id="priority">
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
+
+      <div class="button-group">
+        <button id="ins">Insert</button>
+        <button id="sel">Fetch Data</button>
+      </div>
+    </div>
+
+    <h2>Tasks List</h2>
+
+    <div class="table-container">
+      <table id="dataTable">
+        <thead>
+          <tr>
+            <th>Task Title</th>
+            <th>Description</th>
+            <th>Assign To</th>
+            <th>Priority</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+        
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+  <script src="js/firebase-config.js" defer></script>
+  <script src="js/script.js" defer></script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getDatabase, ref, get, set, child, update, remove }
+      from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAm1-VHbDb8-s8UQ2_AZ4by-EJE7QWirUk",
+      authDomain: "hackaton-14afd.firebaseapp.com",
+      projectId: "hackaton-14afd",
+      storageBucket: "hackaton-14afd.appspot.com",
+      messagingSenderId: "379025562842",
+      appId: "1:379025562842:web:18697f72d072b86cc599e3",
+      measurementId: "G-BH4ZVP3CMP"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    let taskTitle = document.getElementById("taskTitle");
+    let description = document.getElementById("description");
+    let assignTo = document.getElementById("assignTo");
+    let priority = document.getElementById("priority");
+
+    let ins = document.getElementById("ins");
+    let sel = document.getElementById("sel");
+    let tableBody = document.getElementById("tableBody");
+
+    function clearForm() {
+      taskTitle.value = '';
+      description.value = '';
+      assignTo.value = '';
+      priority.value = 'low';
+    }
+
+    function insertData() {
+      if (taskTitle.value === "" || description.value === "" || assignTo.value === "") {
+        Swal.fire('Error', 'All fields are required!', 'error');
+        return;
+      }
+
+      set(ref(db, "Tasks/" + taskTitle.value), {
+        taskTitle: taskTitle.value,
+        description: description.value,
+        assignTo: assignTo.value,
+        priority: priority.value
+      })
+        .then(() => {
+          Swal.fire('Success', 'Task stored successfully', 'success');
+          clearForm();
+          fetchData();
+        })
+        .catch((error) => {
+          Swal.fire('Error', 'Error: ' + error, 'error');
+        });
+    }
+
+    function fetchData() {
+      const dbref = ref(db);
+      get(child(dbref, "Tasks"))
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            tableBody.innerHTML = "";
+
+            snapshot.forEach(childSnapshot => {
+              let data = childSnapshot.val();
+
+              let row = document.createElement('tr');
+              row.innerHTML = `
+                <td>${data.taskTitle}</td>
+                <td>${data.description}</td>
+                <td>${data.assignTo}</td>
+                <td>${data.priority}</td>
+                <td class="action-btns">
+                  <button onclick="editData('${data.taskTitle}')">Edit</button>
+                  <button onclick="deleteData('${data.taskTitle}')">Delete</button>
+                </td>
+              `;
+
+              tableBody.appendChild(row);
+            });
+
+          } else {
+            tableBody.innerHTML = "<tr><td colspan='5'>No tasks found</td></tr>";
+          }
+        })
+        .catch((error) => {
+          Swal.fire('Error', 'Error: ' + error, 'error');
+        });
+    }
+
+    window.editData = function (taskTitle) {
+      const dbref = ref(db, "Tasks/" + taskTitle);
+      get(dbref)
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            let data = snapshot.val();
+            taskTitle.value = data.taskTitle;
+            description.value = data.description;
+            assignTo.value = data.assignTo;
+            priority.value = data.priority;
+          } else {
+            Swal.fire('Error', 'No task found for edit', 'error');
+          }
+        })
+        .catch((error) => {
+          Swal.fire('Error', 'Error: ' + error, 'error');
+        });
+    }
+
+    window.deleteData = function (taskTitle) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, keep it'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          remove(ref(db, "Tasks/" + taskTitle))
+            .then(() => {
+              Swal.fire('Deleted!', 'Your task has been deleted.', 'success');
+              fetchData();
+            })
+            .catch((error) => {
+              Swal.fire('Error', 'Error: ' + error, 'error');
+            });
+        }
+      });
+    }
+
+    ins.addEventListener('click', insertData);
+    sel.addEventListener('click', fetchData);
+
+    fetchData();
+
+    
+  </script>
+
+</body>
+</html>
