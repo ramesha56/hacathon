@@ -148,14 +148,14 @@
 .avatar {
   width: 40px;
   height: 40px;
-  background-color: #ff6666;
+  background-color: #fffdfd;
   border-radius: 50%;
   text-align: center;
   line-height: 40px;
   font-weight: bold;
   font-size: 1.5rem;
   cursor: pointer;
-  border: 3px solid rgb(251, 255, 0);
+  border: 3px solid #fc0a0a;
 }
 
 .hamburger {
@@ -280,17 +280,17 @@
 }
 
 .dot {
-  border: 1px solid black;
+  border: 2px solid black;
   width: 18px;
   height: 16px;
-  background-color: #ffffff;
+  background-color: #706e6e76;
   border-radius: 50%;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 .dot.active-dot {
-  background-color: #111111;
+  background-color: #ed0808a1;
 }
 
 /* responsive */
@@ -383,7 +383,7 @@
  
  @media (max-width: 768px) {
   #sidebar {
-    display: block;
+    display: none !important;
   }
 
   #mainContent {

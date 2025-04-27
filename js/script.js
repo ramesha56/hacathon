@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
         <li><a href="crud.html"><i class="fas fa-cogs"></i> Crud</a></li>
         <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-        <li class="avatar" id="profileAvatar">${letter}</li>
+        <li class="avatar"><a id="profileAvatar" href="profile.html">${letter}</a></li>
       `;
 
       sidebar.style.display = "block";
@@ -37,14 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
         <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
       `;
 
-      setTimeout(() => {
-        const avatar = document.getElementById("profileAvatar");
-        if (avatar) {
-          avatar.addEventListener("click", () => {
-            window.location.href = "profile.html";
-          });
-        }
-      }, 100);
     } else {
       navLinks.innerHTML = `
         <li><button id="loginBtn">Login</button></li>
@@ -257,7 +249,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (slides.length > 0 && dots.length > 0) {
-    setInterval(nextSlide, 5000); // Change slide every 5 seconds
+    setInterval(nextSlide, 5000);
 
     dots.forEach((dot, index) => {
       dot.addEventListener('click', () => {
@@ -298,7 +290,9 @@ if (logoutBtn) {
         icon: "success",
         title: "Logged Out",
         text: "You have been logged out successfully.",
-        confirmButtonColor: "#d6af4c"
+        confirmButtonColor: "#d6af4c",
+        timer: 10000, 
+        showConfirmButton: false
       }).then(() => {
         window.location.href = "index.html";
       });
@@ -309,3 +303,4 @@ if (logoutBtn) {
     });
   });
 }
+
