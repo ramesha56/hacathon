@@ -10,46 +10,41 @@ document.addEventListener("DOMContentLoaded", () => {
   const navLinks = document.getElementById("nav-links");
   const hamburger = document.getElementById("hamburger");
   const contactForm = document.getElementById("contactForm");
+  const sidebar = document.getElementById("sidebar");
+  const sidebarLinks = document.getElementById("sidebar-links");
 
   function updateNavbar(user) {
-    const sidebar = document.getElementById("sidebar");
     const mainContent = document.getElementById("mainContent");
-    const sidebarLinks = document.getElementById("sidebar-links");
 
-    if (user && navLinks) {
+    if (user) {
       const letter = user.email[0].toUpperCase();
       navLinks.innerHTML = `
-      <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-      <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
-      <li><a href="crud.html"><i class="fas fa-cogs"></i> Crud</a></li>
-      <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-      <li class="avatar" id="profileAvatar"> ${letter}</li>
-    `;
+        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+        <li><a href="crud.html"><i class="fas fa-cogs"></i> Crud</a></li>
+        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        <li class="avatar" id="profileAvatar">${letter}</li>
+      `;
 
-      sidebar.style.display = "block"; 
+      sidebar.style.display = "block";
       mainContent.classList.add("logged-in");
 
       sidebarLinks.innerHTML = `
-  
-  <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-  <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
-  <li><a href="crud.html"><i class="fas fa-cogs"></i> Crud</a></li>
-  <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-   <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
-  
-`;
-      
+        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+        <li><a href="crud.html"><i class="fas fa-cogs"></i> Crud</a></li>
+        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+      `;
 
-      // Ensure the profile avatar is clickable and redirects to profile page
       setTimeout(() => {
         const avatar = document.getElementById("profileAvatar");
         if (avatar) {
           avatar.addEventListener("click", () => {
-            window.location.href = "profile.html"; // Navigate to the profile page
+            window.location.href = "profile.html";
           });
         }
       }, 100);
-
     } else {
       navLinks.innerHTML = `
         <li><button id="loginBtn">Login</button></li>
@@ -68,9 +63,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Hamburger open/close
   if (hamburger) {
     hamburger.addEventListener("click", () => {
       navLinks.classList.toggle("show");
+    });
+  }
+
+  // Nav Links Close
+  if (navLinks) {
+    navLinks.addEventListener('click', () => {
+      navLinks.classList.remove('show');
+    });
+  }
+
+  // Sidebar Links Close
+  if (sidebarLinks) {
+    sidebarLinks.addEventListener('click', () => {
+      sidebar.classList.remove('active');
     });
   }
 
@@ -168,24 +178,23 @@ document.addEventListener("DOMContentLoaded", () => {
       const password = document.getElementById("signupPassword").value;
 
       firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(cred => {
-          return db.collection("users").doc(cred.user.uid).set({
-            name, number, age, email
-          });
-        })
-        .then(() => {
-          Swal.fire("Signup Successful!", "Please log in.", "success").then(() => {
-            if (signupModal) signupModal.style.display = "none";
-            if (loginModal) loginModal.style.display = "flex";
-          });
-        })
-        .catch(err => Swal.fire("Error", err.message, "error"));
+      .then(cred => {
+        return db.collection("users").doc(cred.user.uid).set({
+          name, number, age, email
+        });
+      })
+      .then(() => {
+        Swal.fire("Signup Successful!", "Please log in.", "success").then(() => {
+          if (signupModal) signupModal.style.display = "none";
+          if (loginModal) loginModal.style.display = "flex";
+        });
+      })
+      .catch(err => Swal.fire("Error", err.message, "error"));
     });
   }
 
   // GOOGLE SIGN-IN
   const googleProvider = new firebase.auth.GoogleAuthProvider();
-
   const googleLoginBtn = document.getElementById("googleLogin");
   const googleSignupBtn = document.getElementById("googleSignup");
 
@@ -194,44 +203,72 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function googleSignin() {
     firebase.auth().signInWithPopup(googleProvider)
-      .then(result => {
-        const user = result.user;
-        const userRef = db.collection("users").doc(user.uid);
+    .then(result => {
+      const user = result.user;
+      const userRef = db.collection("users").doc(user.uid);
 
-        userRef.get().then(doc => {
-          if (!doc.exists) {
-            return userRef.set({
-              name: user.displayName || "",
-              email: user.email,
-              number: "",
-              age: ""
-            });
-          }
-        });
+      userRef.get().then(doc => {
+        if (!doc.exists) {
+          return userRef.set({
+            name: user.displayName || "",
+            email: user.email,
+            number: "",
+            age: ""
+          });
+        }
+      });
 
-        if (loginModal) loginModal.style.display = "none";
-        if (signupModal) signupModal.style.display = "none";
+      if (loginModal) loginModal.style.display = "none";
+      if (signupModal) signupModal.style.display = "none";
 
-        Swal.fire("Login Successful!", "Welcome!", "success").then(() => {
-          window.location.reload();
-        });
-      })
-      .catch(err => Swal.fire("Error", err.message, "error"));
+      Swal.fire("Login Successful!", "Welcome!", "success").then(() => {
+        window.location.reload();
+      });
+    })
+    .catch(err => Swal.fire("Error", err.message, "error"));
   }
 
-  // CLOSE BUTTONS
+  // CLOSE MODALS
   if (document.getElementById("closeLogin"))
     document.getElementById("closeLogin").onclick = () => {
-      loginModal.style.display = "none";
+      if (loginModal) loginModal.style.display = "none";
     };
 
   if (document.getElementById("closeSignup"))
     document.getElementById("closeSignup").onclick = () => {
-      signupModal.style.display = "none";
+      if (signupModal) signupModal.style.display = "none";
     };
+
+  // === CAROUSEL FUNCTIONALITY ===
+  let currentIndex = 0;
+  const slides = document.querySelectorAll('.carousel-img');
+  const dots = document.querySelectorAll('.dot');
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === index);
+      dots[i].classList.toggle('active-dot', i === index);
+    });
+  }
+
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % slides.length;
+    showSlide(currentIndex);
+  }
+
+  if (slides.length > 0 && dots.length > 0) {
+    setInterval(nextSlide, 5000); // Change slide every 5 seconds
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        currentIndex = index;
+        showSlide(currentIndex);
+      });
+    });
+  }
 });
 
-// PROFILE PAGE
+// PROFILE PAGE HANDLING
 if (window.location.pathname.includes("profile.html")) {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -251,24 +288,24 @@ if (window.location.pathname.includes("profile.html")) {
   });
 }
 
-// LOGOUT
+// LOGOUT HANDLING
 const logoutBtn = document.getElementById("logoutBtn");
 if (logoutBtn) {
   logoutBtn.addEventListener("click", () => {
     firebase.auth().signOut()
-      .then(() => {
-        Swal.fire({
-          icon: "success",
-          title: "Logged Out",
-          text: "You have been logged out successfully.",
-          confirmButtonColor: "#d6af4c"
-        }).then(() => {
-          window.location.href = "index.html";
-        });
-      })
-      .catch((error) => {
-        console.error("Logout Error:", error);
-        Swal.fire("Oops!", "Something went wrong while logging out.", "error");
+    .then(() => {
+      Swal.fire({
+        icon: "success",
+        title: "Logged Out",
+        text: "You have been logged out successfully.",
+        confirmButtonColor: "#d6af4c"
+      }).then(() => {
+        window.location.href = "index.html";
       });
+    })
+    .catch((error) => {
+      console.error("Logout Error:", error);
+      Swal.fire("Oops!", "Something went wrong while logging out.", "error");
+    });
   });
 }

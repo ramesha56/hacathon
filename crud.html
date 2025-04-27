@@ -9,10 +9,44 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+  <style>
+    
+    .back-btn {
+      background-color: transparent;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #121212;
+      padding: 8px;
+      transition: color 0.3s;
+      display: inline-flex;
+      align-items: center;
+    }
 
-  <h2>TASK FORM</h2>
+    .back-btn:hover {
+      color: #ebbd3f; 
+    }
 
+    .form-container {
+      margin-top: 20px;
+    }
+
+    
+    .form-header {
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+  </style>
+
+  
+  
   <div class="form-container">
+    <div class="form-header">
+      <button class="back-btn" onclick="window.history.back()">&#8592;</button>
+      <h2>TASK FORM</h2>
+    </div>
     <label for="taskTitle">Task Title</label>
     <input type="text" id="taskTitle" placeholder="Enter task title">
 
@@ -162,7 +196,7 @@
             assignTo.value = data.assignTo;
             priority.value = data.priority;
 
-            ins.style.display = "none"; // Hide the Insert button
+            ins.style.display = "none"; 
             const updateBtn = document.createElement("button");
             updateBtn.textContent = "Update";
             updateBtn.id = "updateBtn";
@@ -197,7 +231,7 @@
           clearForm();
           fetchData();
 
-          // Remove the update button and show the insert button again
+      
           document.getElementById("updateBtn").remove();
           ins.style.display = "inline-block";
         })

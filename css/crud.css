@@ -1,147 +1,4 @@
-/* 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
 
-body {
-  background: white;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-}
-
-h2 {
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.form-container {
-  background: #ffffff;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.896);
-  width: 100%;
-  max-width: 400px;
-  margin-bottom: 30px;
-  border: 1px solid black;
-}
-
-label {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 5px;
-  margin-top: 15px;
-}
-
-input, select {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.896);
-
-  margin-bottom: 10px;
-  font-size: 16px;
-}
-
-.button-group {
-  margin-top: 20px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.button-group button {
-  padding: 10px 20px;
-  border: none;
-  background: #e1ab2c;
-  color: white;
-  font-size: 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.3s;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.896);
-
-}
-
-.button-group button:hover {
-  background: #eb9fda;
-}
-
-.table-container {
-  width: 100%;
-  overflow-x: auto;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: white;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.855);
-}
-
-th, td {
-  padding: 12px 15px;
-  text-align: center;
-  border-bottom: 1px solid #eee;
-}
-
-th {
-  background-color: #e1ab2c;
-  color: white;
-  font-size: 18px;
-}
-
-td {
-  font-size: 16px;
-}
-
-.action-btns button {
-  background-color: #ff6b6b;
-  border: none;
-  padding: 6px 10px;
-  color: white;
-  border-radius: 5px;
-  margin: 2px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.action-btns button:hover {
-  background-color: #e55050;
-}
-
-.action-btns button:first-child {
-  background-color: #1dd1a1;
-}
-
-.action-btns button:first-child:hover {
-  background-color: #10ac84;
-}
-
-@media(max-width: 600px) {
-  .form-container {
-    width: 90%;
-  }
-
-  .button-group {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .button-group button {
-    width: 100%;
-  }
-} */
-
-/* General Reset */
 * {
   margin: 0;
   padding: 0;
@@ -210,8 +67,8 @@ input, select {
 .button-group button {
   padding: 10px 20px;
   border: none;
-  background: #f1c40f; /* Yellow color */
-  color: white;
+  background: #f0d26f; 
+  color:  rgb(249, 66, 66);
   font-size: 16px;
   border-radius: 8px;
   cursor: pointer;
@@ -220,7 +77,8 @@ input, select {
 }
 
 .button-group button:hover {
-  background: #f39c12; /* Darker yellow on hover */
+  background: #f39c12; 
+  color: black;
 }
 
 /* Table Container */
@@ -247,8 +105,8 @@ th, td {
 }
 
 th {
-  background-color: #f1c40f; /* Yellow color */
-  color: white;
+  background-color: #f1c40f; 
+  color: rgb(249, 66, 66);
   font-size: 18px;
 }
 
@@ -258,7 +116,7 @@ td {
 
 /* Action Buttons Styles */
 .action-btns button {
-  background-color: #ff6b6b; /* Red color for delete */
+  background-color: #ff6b6b; 
   border: none;
   padding: 6px 12px;
   color: white;
@@ -282,7 +140,7 @@ td {
 
 /* Back Button */
 #backBtn {
-  background-color: #f44336; /* Red color */
+  background-color: #f44336; 
   color: white;
   padding: 10px 20px;
   border: none;
@@ -296,7 +154,6 @@ td {
   background-color: #d32f2f;
 }
 
-/* Media Queries for Responsiveness */
 @media(max-width: 600px) {
   .form-container {
     width: 90%;
