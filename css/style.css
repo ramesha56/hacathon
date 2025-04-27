@@ -58,7 +58,8 @@
 }
 
 .modal button:hover {
-  background-color: #0097a7;
+  background-color: #ebbd3f;
+  color: #ec3333;
 }  
 /* form end */
 
@@ -341,7 +342,7 @@
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.358);
   transition: transform 0.3s ease;
   z-index: 1000;
-  transform: translateX(0); /* Initially visible */
+  transform: translateX(0); 
 }
 
 
@@ -371,8 +372,8 @@
 /* #mainContent {
   margin-left: 220px;
   transition: margin-left 0.3s;
-}
- */
+} */
+
 
 
 .logged-in #mainContent {
@@ -382,7 +383,7 @@
  
  @media (max-width: 768px) {
   #sidebar {
-    overflow: hidden;
+    display: block;
   }
 
   #mainContent {
@@ -605,75 +606,6 @@
 
 
 
-/* cards*/
-
-
-.product-grid {
-  columns: 4 250px;
-  column-gap: 20px;
-}
-
-.product-card {
-  display: inline-block;
-  margin-bottom: 20px;
-  width: 100%;
-}
-
- .products {
-  padding: 60px 20px;
-  text-align: center;
-}
-
-.products h2 {
-  font-size: 2.5rem;
-  margin-bottom: 40px;
-}
-
-.product-grid {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  flex-wrap: wrap;
-}
-
-.product-card {
-  background: white;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  border-radius: 20px;
-  overflow: hidden;
-  max-width: 250px;
-  transition: transform 0.3s;
-}
-
-.product-card img {
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-}
-
-.product-card h3 {
-  margin: 15px 0 5px;
-}
-
-.product-card p {
-  padding: 0 10px 20px;
-  color: gray;
-}
-
-.product-card:hover {
-  transform: translateY(-10px);
-} 
-
-
-/* Footer */
-footer {
-  background-color: #333;
-  color: white;
-  padding: 15px;
-  text-align: center;
-}
-
-
 
 
 
@@ -814,25 +746,27 @@ section.show {
   padding: 2rem;
   background: linear-gradient(135deg, #f9f9f9, #e0e0e0);
   border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.604);
   text-align: center;
 }
 
 .profile-container h2 {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   color: black;
   margin-bottom: 1.5rem;
 }
 
 .profile-container p {
   font-size: 1.1rem;
-  color: #333;
+  color: #3e3e3e;
   margin-bottom: 1rem;
   text-align: left;
 }
 
 .profile-container p strong {
   color: #825d00;
+  font-size: larger;
+  font-weight: bold;
 }
 
 #logoutBtn {

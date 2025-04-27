@@ -29,7 +29,7 @@ h2 {
   background: #fff;
   padding: 20px;
   border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.744);
   width: 100%;
   max-width: 500px;
   margin-bottom: 30px;
@@ -45,19 +45,20 @@ label {
   color: #333;
 }
 
-/* Input & Select Styles */
+
 input, select {
   width: 100%;
   padding: 10px;
   margin-top: 5px;
   border-radius: 8px;
   border: 1px solid #ccc;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.649);
   margin-bottom: 10px;
   font-size: 16px;
+  
 }
 
-/* Button Group Styles */
+
 .button-group {
   margin-top: 20px;
   display: flex;
@@ -73,7 +74,7 @@ input, select {
   border-radius: 8px;
   cursor: pointer;
   transition: 0.3s;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.803);
 }
 
 .button-group button:hover {
@@ -97,7 +98,7 @@ table {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Table Header and Data */
+/*  Data */
 th, td {
   padding: 12px 15px;
   text-align: center;
@@ -127,15 +128,15 @@ td {
 }
 
 .action-btns button:hover {
-  background-color: #e55050; /* Darker red on hover */
+  background-color: #e55050; 
 }
 
 .action-btns button:first-child {
-  background-color: #1dd1a1; /* Green for edit */
+  background-color: #1dd1a1; 
 }
 
 .action-btns button:first-child:hover {
-  background-color: #10ac84; /* Darker green on hover */
+  background-color: #10ac84; 
 }
 
 /* Back Button */
@@ -147,6 +148,7 @@ td {
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
+  
   transition: background-color 0.3s;
 }
 
