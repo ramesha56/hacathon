@@ -48,7 +48,7 @@
     </form>
   </div>
 
-  <!-- Contact Info Section -->
+  <!-- Contact -->
 <section class="contact-info">
   <div class="info-box">
     <img src="img/email.jfif" alt="Email" />
@@ -71,74 +71,64 @@
 
 
   <div id="messageList"></div>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("contactForm");
+  const messageList = document.getElementById("messageList");
 
-  <script>
-    firebase.auth().onAuthStateChanged((user) => {
-      const form = document.getElementById("contactForm");
-      const messageList = document.getElementById("messageList");
+  firebase.auth().onAuthStateChanged((user) => {
+    if (!user) {
+      form.style.display = "none";
+      alert("Please log in to send a message.");
+      return;
+    }
+    form.style.display = "block";
 
-      if (!user) {
-        form.style.display = "none";
-        alert("Please log in to send a message.");
-        return;
-      }
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const message = document.getElementById("message").value;
 
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const name = document.getElementById("name").value;
-        const email = document.getElementById("email").value;
-        const message = document.getElementById("message").value;
-
-        db.collection("contacts").add({
-          name,
-          email,
-          message,
-          userId: user.uid,
-          timestamp: firebase.firestore.FieldValue.serverTimestamp()
-        })
-        .then(() => {
-          alert("Message sent successfully!");
-          form.reset();
-          fetchMessages();
-        })
-        .catch((error) => {
-          console.error("Error sending message: ", error);
-          alert("Failed to send message.");
-        });
+      db.collection("contacts").add({
+        name,
+        email,
+        message,
+        userId: user.uid,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      })
+      .then(() => {
+        Swal.fire("Success", "Message sent successfully!", "success");
+        form.reset();
+        fetchMessages();
+      })
+      .catch((error) => {
+        Swal.fire("Error", "Failed to send message.", "error");
       });
-
-      function fetchMessages() {
-        db.collection("contacts").orderBy("timestamp", "desc").get()
-        .then((snapshot) => {
-          messageList.innerHTML = "";
-          snapshot.forEach(doc => {
-            const data = doc.data();
-            const messageDiv = document.createElement("div");
-            messageDiv.innerHTML = `
-              <p><strong>${data.name}</strong> (${data.email})</p>
-              <p>${data.message}</p>
-              <hr />
-            `;
-            messageList.appendChild(messageDiv);
-          });
-        })
-        .catch((error) => {
-          console.error("Error fetching messages: ", error);
-        });
-      }
-
-      fetchMessages();
     });
 
+    function fetchMessages() {
+      db.collection("contacts").orderBy("timestamp", "desc").get()
+      .then((snapshot) => {
+        messageList.innerHTML = "";
+        snapshot.forEach((doc) => {
+          const data = doc.data();
+          const messageDiv = document.createElement("div");
+          messageDiv.innerHTML = `
+            <p><strong>${data.name}</strong> (${data.email})</p>
+            <p>${data.message}</p>
+            <hr/>
+          `;
+          messageList.appendChild(messageDiv);
+        });
+      });
+    }
 
-    document.querySelector("#contactForm button").addEventListener("click", function () {
-  this.classList.add("clicked");
-  setTimeout(() => {
-    this.classList.remove("clicked");
-  }, 2000);
+    fetchMessages();
+  });
 });
 
-  </script>
+</script>
 
 </body>
 </html>
